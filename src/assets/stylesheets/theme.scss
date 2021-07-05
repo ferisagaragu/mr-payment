@@ -1,0 +1,29 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #fafafa;
+}
+
+table {
+  width: 100%;
+  background: white !important;
+}
+
+.success-color {
+  color: #4CAF50 !important;
+  font-weight: bold;
+}
+
+.warn-color {
+  color: #FFC107 !important;
+  font-weight: bold;
+}
+
+.error-color {
+  color: #F44336 !important;
+  font-weight: bold;
+}

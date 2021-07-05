@@ -1,0 +1,82 @@
+<div class="mat-elevation-z8 mt-4">
+  <table mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="period">
+      <th mat-header-cell *matHeaderCellDef>
+        Periodo
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        {{ element.period }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="payments">
+      <th mat-header-cell *matHeaderCellDef>
+        Gastos
+      </th>
+
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [class.success-color]="settings.normalPayments >= element.payments"
+        [class.warn-color]="settings.mediumPayments <= element.payments"
+        [class.error-color]="settings.highPayments <= element.payments"
+      >
+        {{ element.payments | currency:'$' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="paid">
+      <th mat-header-cell *matHeaderCellDef>
+        Por pagar
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.payments !== element.paid">
+            {{ (element.payments - element.paid) | currency:'$' }}
+          </span>
+
+        <em
+          *ngIf="element.payments === element.paid"
+          class="mdi mdi-credit-card-check mdi-24px success-color"
+        >
+        </em>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="freeMoney">
+      <th mat-header-cell *matHeaderCellDef>
+        Dinero para gastar
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        {{ element.freeMoney | currency:'$' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="distribution">
+      <th mat-header-cell *matHeaderCellDef>
+        Toca por quincena
+      </th>
+
+      <td mat-cell *matCellDef="let element">
+        {{ (element.freeMoney / 2) | currency:'$' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+
+      <td mat-cell *matCellDef="let element">
+        <button mat-mini-fab color="accent">
+          <mat-icon>visibility</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>

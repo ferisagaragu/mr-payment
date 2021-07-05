@@ -1,0 +1,49 @@
+h1 {
+  font-family: 'TourneyRegular';
+  font-weight: bold;
+  color: #00BCD4;
+  padding-top: 12px;
+}
+
+h2 {
+  font-family: 'ShadowsIntoLightRegular';
+  font-weight: bold;
+  color: #EF5350;
+  margin-top: -32px;
+  margin-left: -10px;
+  transform: rotate(20deg);
+}
+
+.logo-container {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  border-radius: 100px;
+}
+
+.mustache {
+  color: black !important;
+  font-size: 36px;
+  margin-top: -42px;
+}
+
+.decagram {
+  color: #FFCC80;
+  position: absolute;
+  font-size: 109px;
+  margin-left: -55px;
+  margin-top: 38px;
+  z-index: -1;
+}
+
+.decagram-background{
+  color: white;
+  position: absolute;
+  font-size: 130px;
+  margin-left: -65px;
+  margin-top: 38px;
+  z-index: -2;
+  text-shadow: rgba(0,0,0,0.1) -2px 0, rgba(0,0,0,0.1) 0 -2px,
+  rgba(255,255,255,0.1) 2px 0, rgba(255,255,255,0.1) 0 2px,
+  rgba(0,0,0,0.1) -2px -2px, rgba(255,255,255,0.1) 2px 2px;
+}

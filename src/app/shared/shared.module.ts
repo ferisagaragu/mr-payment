@@ -10,11 +10,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { DATE_FORMAT } from '../core/formats/date.format';
 
 import { LogoComponent } from './logo/logo.component';
-import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   providers: [
@@ -40,6 +45,11 @@ import { MatInputModule } from '@angular/material/input';
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
+    MatDialogModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatTooltipModule
   ],
 	exports: [
     ReactiveFormsModule,
@@ -50,6 +60,11 @@ import { MatInputModule } from '@angular/material/input';
     MatDatepickerModule,
     MatInputModule,
     MatFormFieldModule,
+    MatDialogModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
 
     LogoComponent
 	]

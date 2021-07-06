@@ -23,7 +23,30 @@ table {
   font-weight: bold;
 }
 
+.neutral-color {
+  color: #00BCD4 !important;
+  font-weight: bold;
+}
+
 .error-color {
   color: #F44336 !important;
   font-weight: bold;
+}
+
+.mat-mini-fab {
+  width: 26px !important;
+  height: 26px !important;
+  position: relative !important;
+}
+
+.mat-mini-fab>.mat-button-wrapper {
+  position: absolute !important;
+  margin-top: -20px;
+  margin-left: -9px;
+}
+
+#cdk-overlay-0 {
+  width: 70% !important;
+  height: 70% !important;
+  max-width: none !important;
 }

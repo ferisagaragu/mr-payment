@@ -3,7 +3,7 @@ export const DATE_FORMAT = {
     dateInput: "LL"
   },
   display: {
-    dateInput: "DD/MM/YYYY",
+    dateInput: "DD [de] MMMM [del] YYYY",
     monthYearLabel: "YYYY",
     dateA11yLabel: "LL",
     monthYearA11yLabel: "YYYY"

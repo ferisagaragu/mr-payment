@@ -4,6 +4,7 @@
     class="mini-button"
     [disabled]="disableAll"
     (click)="onAdd()"
+    matTooltip="Añadir un pago"
   >
     <em class="mdi mdi-plus mdi-18px success-color"></em>
   </button>
@@ -93,8 +94,17 @@
       <span *ngIf="!element.edit">
         {{ element.quantity | currency: '$' }}
 
-        <span *ngIf="element.monthCount" class="pink-color">
-          /{{ element.monthCount }}
+        <span
+          *ngIf="element.monthCount"
+          class="pink-color"
+          [matTooltip]="
+            element.monthCount === 1 ?
+              'Este es tu ultimo pago'
+            :
+              'Quedan ' + (element.monthCount - 1) + ' pago(s) restante(s)'
+          "
+        >
+          ({{ element.monthCount }})
         </span>
       </span>
 
@@ -192,6 +202,7 @@
           mat-mini-fab
           class="mini-button me-2"
           type="button"
+          matTooltip="Editar el pago"
           (click)="onUpdate(element.uuid)"
           [disabled]="disableAll || element.type === 1"
         >
@@ -203,6 +214,7 @@
           mat-mini-fab
           class="mini-button"
           type="button"
+          matTooltip="Borrar el pago"
           [disabled]="disableAll"
           (click)="onRemove(element.uuid)"
         >
@@ -214,6 +226,7 @@
           mat-mini-fab
           class="mini-button me-2"
           type="button"
+          matTooltip="Aceptar"
           (click)="update()"
         >
           <em class="mdi mdi-check mdi-18px success-color"></em>
@@ -224,6 +237,7 @@
           mat-mini-fab
           class="mini-button"
           type="button"
+          matTooltip="Cancelar"
           (click)="onCancel(element.uuid)"
         >
           <em class="mdi mdi-close mdi-18px error-color"></em>
@@ -233,6 +247,7 @@
           *ngIf="element.newElement"
           mat-mini-fab
           class="mini-button me-2"
+          matTooltip="Aceptar"
         >
           <em class="mdi mdi-check mdi-18px success-color"></em>
         </button>
@@ -242,6 +257,7 @@
           mat-mini-fab
           class="mini-button"
           type="button"
+          matTooltip="Cancelar"
           (click)="onCancelNew()"
         >
           <em class="mdi mdi-close mdi-18px error-color"></em>

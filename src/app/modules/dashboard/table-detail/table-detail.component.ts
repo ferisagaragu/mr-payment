@@ -40,7 +40,7 @@ export class TableDetailComponent implements AfterViewInit {
     this.dialog.open(
       TablePaymentComponent,
       {
-        disableClose: true
+        disableClose: false
       }
     );
   }

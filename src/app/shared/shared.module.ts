@@ -16,6 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 import { DATE_FORMAT } from '../core/formats/date.format';
 
@@ -49,7 +50,8 @@ import { LogoComponent } from './logo/logo.component';
     MatCardModule,
     MatCheckboxModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatSelectModule
   ],
 	exports: [
     ReactiveFormsModule,
@@ -65,6 +67,7 @@ import { LogoComponent } from './logo/logo.component';
     MatCheckboxModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    MatSelectModule,
 
     LogoComponent
 	]

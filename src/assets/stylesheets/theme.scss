@@ -33,6 +33,24 @@ table {
   font-weight: bold;
 }
 
+.pink-color {
+  color: #E91E63 !important;
+  font-weight: bold;
+}
+
+.orange-color {
+  color: #FF5722 !important;
+  font-weight: bold;
+}
+
+.w-88 {
+  width: 88% !important;
+}
+
+.w-55 {
+  width: 55% !important;
+}
+
 .mat-mini-fab {
   width: 26px !important;
   height: 26px !important;
@@ -46,7 +64,7 @@ table {
 }
 
 #cdk-overlay-0 {
-  width: 70% !important;
+  width: 95% !important;
   height: 70% !important;
   max-width: none !important;
 }

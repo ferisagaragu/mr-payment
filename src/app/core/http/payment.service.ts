@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -8,7 +8,11 @@ import { map } from 'rxjs/operators';
 })
 export class PaymentService {
 
-  constructor(private http: HttpClient) { }
+  public onPay: BehaviorSubject<void>;
+
+  constructor(private http: HttpClient) {
+    this.onPay = new BehaviorSubject<void>(null);
+  }
 
   findAll(paymentUuid: string): Observable<Array<any>> {
     return this.http.get(`http://localhost:5000/rest/payment/${paymentUuid}`).pipe(
@@ -24,7 +28,11 @@ export class PaymentService {
     return this.http.patch(
       `http://localhost:5000/rest/payment`,
       { uuid: paymentUuid, pay }
-    );
+    ).pipe(map(resp => {
+      this.onPay.next();
+
+      return resp;
+    }));
   }
 
   deletePayment(paymentUuid: string): Observable<any> {

@@ -6,12 +6,14 @@ import { SharedModule } from '../../shared/shared.module';
 import { ViewPeriodComponent } from './view-period/view-period.component';
 import { TableDetailComponent } from './table-detail/table-detail.component';
 import { TablePaymentComponent } from './table-payment/table-payment.component';
+import { ChipDetailComponent } from './chip-detail/chip-detail.component';
 
 @NgModule({
   declarations: [
     ViewPeriodComponent,
     TableDetailComponent,
-    TablePaymentComponent
+    TablePaymentComponent,
+    ChipDetailComponent
   ],
   imports: [
     CommonModule,

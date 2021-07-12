@@ -1,13 +1,21 @@
-<div class="w-100 text-end">
-  <button
-    mat-mini-fab
-    class="mini-button"
-    [disabled]="disableAll"
-    (click)="onAdd()"
-    matTooltip="Añadir un pago"
-  >
-    <em class="mdi mdi-plus mdi-18px success-color"></em>
-  </button>
+<div class="row">
+  <div class="col-md-6">
+    <mat-chip-list>
+      <mat-chip>Hola</mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <div class="col-md-6 text-end">
+    <button
+      mat-mini-fab
+      class="mini-button"
+      [disabled]="disableAll || loadData"
+      (click)="onAdd()"
+      matTooltip="Añadir un pago"
+    >
+      <em class="mdi mdi-plus mdi-18px success-color"></em>
+    </button>
+  </div>
 </div>
 
 <form class="mt-4" [formGroup]="form" (ngSubmit)="save()">
@@ -198,7 +206,7 @@
 
       <td mat-cell *matCellDef="let element">
         <button
-          *ngIf="!element.edit"
+          *ngIf="!element.edit && !element.load"
           mat-mini-fab
           class="mini-button me-2"
           type="button"
@@ -210,7 +218,7 @@
         </button>
 
         <button
-          *ngIf="!element.edit"
+          *ngIf="!element.edit && !element.load"
           mat-mini-fab
           class="mini-button"
           type="button"
@@ -222,7 +230,7 @@
         </button>
 
         <button
-          *ngIf="element.edit && !element.newElement"
+          *ngIf="element.edit && !element.newElement && !element.load"
           mat-mini-fab
           class="mini-button me-2"
           type="button"
@@ -233,7 +241,7 @@
         </button>
 
         <button
-          *ngIf="element.edit && !element.newElement"
+          *ngIf="element.edit && !element.newElement && !element.load"
           mat-mini-fab
           class="mini-button"
           type="button"
@@ -244,7 +252,7 @@
         </button>
 
         <button
-          *ngIf="element.newElement"
+          *ngIf="element.newElement && !element.load"
           mat-mini-fab
           class="mini-button me-2"
           matTooltip="Aceptar"
@@ -253,7 +261,7 @@
         </button>
 
         <button
-          *ngIf="element.newElement"
+          *ngIf="element.newElement && !element.load"
           mat-mini-fab
           class="mini-button"
           type="button"
@@ -262,16 +270,28 @@
         >
           <em class="mdi mdi-close mdi-18px error-color"></em>
         </button>
+
+        <em
+          *ngIf="element.load"
+          class="mdi mdi-loading mdi-spin mdi-18px pink-color"
+        >
+        </em>
       </td>
     </ng-container>
 
     <tr class="mat-row" *matNoDataRow>
       <td class="mat-cell text-center" colspan="7">
-        Aún no hay gastos registrados
+        <div *ngIf="loadData" class="w-100 text-center mt-3 mb-3">
+          <mat-spinner color="accent" strokeWidth="3" diameter="40"></mat-spinner>
+        </div>
+
+        <span *ngIf="!loadData">
+          Aún no hay gastos registrados
+        </span>
       </td>
     </tr>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns;"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 

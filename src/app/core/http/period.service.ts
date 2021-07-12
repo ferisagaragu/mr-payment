@@ -17,4 +17,17 @@ export class PeriodService {
     );
   }
 
+  findPeriodDetail(periodUuid: string): Observable<any> {
+    return this.http.get(`http://localhost:5000/rest/period/detail/${periodUuid}`).pipe(
+      map((resp: any) => resp.data)
+    );
+  }
+
+  calculateNext(): Observable<any> {
+    return this.http.post(
+      'http://localhost:5000/rest/period/calculate-next',
+      { }
+    );
+  }
+
 }

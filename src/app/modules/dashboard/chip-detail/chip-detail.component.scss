@@ -1,0 +1,58 @@
+.unique-chip {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #00BCD4;
+  background: white;
+  color: #00BCD4;
+}
+
+.monthly-chip {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #E91E63;
+  background: white;
+  color: #E91E63;
+}
+
+.recurrent-chip {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #FF5722;
+  background: white;
+  color: #FF5722;
+}
+
+.save-chip {
+  border-width: 1px;
+  border-style: solid;
+  border-color: #4CAF50;
+  background: white;
+  color: #4CAF50;
+}
+
+.save-total-chip {
+  background: #4CAF50;
+  color: white;
+}
+
+.left-container {
+  width: 80% !important;
+}
+
+.right-container {
+  width: 20% !important;
+}
+
+.mat-chip {
+  font-size: 12px !important;
+}
+
+.spinner-start {
+  margin-left: 40px;
+  display: initial !important;
+}
+
+.spinner-position {
+  padding-top: 6px;
+}
+

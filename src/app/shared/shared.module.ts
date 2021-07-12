@@ -17,10 +17,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { DATE_FORMAT } from '../core/formats/date.format';
 
 import { LogoComponent } from './logo/logo.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   providers: [
@@ -34,7 +38,8 @@ import { LogoComponent } from './logo/logo.component';
     }
   ],
 	declarations: [
-		LogoComponent
+		LogoComponent,
+    HeaderComponent
 	],
   imports: [
     CommonModule,
@@ -51,7 +56,10 @@ import { LogoComponent } from './logo/logo.component';
     MatCheckboxModule,
     MatSlideToggleModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatMenuModule
   ],
 	exports: [
     ReactiveFormsModule,
@@ -68,8 +76,11 @@ import { LogoComponent } from './logo/logo.component';
     MatSlideToggleModule,
     MatTooltipModule,
     MatSelectModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatMenuModule,
 
-    LogoComponent
+    HeaderComponent
 	]
 })
 export class SharedModule { }

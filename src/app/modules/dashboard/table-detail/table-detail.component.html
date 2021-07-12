@@ -1,84 +1,121 @@
-<div class="mat-elevation-z8 mt-4">
-  <table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>
-        Periodo
-      </th>
+<div class="margin-table">
+  <div class="mat-elevation-z8">
+    <div class="chip-container">
+      <app-chip-detail
+        [load]="periodLoad"
+        [unique]="periodDetail?.unique"
+        [monthly]="periodDetail?.monthly"
+        [recurrent]="periodDetail?.recurrent"
+      >
+      </app-chip-detail>
+    </div>
 
-      <td mat-cell *matCellDef="let element">
-        {{ element.name }}
-      </td>
-    </ng-container>
+    <table mat-table [dataSource]="dataSource">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>
+          Periodo
+        </th>
 
-    <ng-container matColumnDef="debt">
-      <th mat-header-cell *matHeaderCellDef>
-        Gastos
-      </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.name }}
+        </td>
+      </ng-container>
 
-      <td mat-cell *matCellDef="let element">
-        {{ element.debt | currency:'$' }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="debt">
+        <th mat-header-cell *matHeaderCellDef>
+          Gastos
+        </th>
 
-    <ng-container matColumnDef="remainingDebt">
-      <th mat-header-cell *matHeaderCellDef>
-        Por pagar
-      </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.debt | currency:'$' }}
+        </td>
+      </ng-container>
 
-      <td mat-cell *matCellDef="let element">
-        <span *ngIf="element.remainingDebt">
-          {{ element.remainingDebt | currency:'$' }}
-        </span>
+      <ng-container matColumnDef="remainingDebt">
+        <th mat-header-cell *matHeaderCellDef>
+          Por pagar
+        </th>
 
-        <em
-          *ngIf="(element.debt != 0) && (element.remainingDebt == 0)"
-          class="mdi mdi-credit-card-check mdi-24px success-color"
-          matTooltip="¡Yeeeii! Ya pagaste todos tus gastos"
-        >
-        </em>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.remainingDebt">
+            {{ element.remainingDebt | currency:'$' }}
+          </span>
 
-        <em
-          *ngIf="(element.debt == 0) && (element.remainingDebt == 0)"
-          class="mdi mdi-progress-question mdi-24px neutral-color"
-          matTooltip="Parece que no tienes gastos registrados"
-        >
-        </em>
-      </td>
-    </ng-container>
+          <em
+            *ngIf="(element.debt != 0) && (element.remainingDebt == 0)"
+            class="mdi mdi-credit-card-check mdi-24px success-color"
+            matTooltip="¡Yeeeii! Ya pagaste todos tus gastos"
+          >
+          </em>
 
-    <ng-container matColumnDef="freeMoney">
-      <th mat-header-cell *matHeaderCellDef>
-        Dinero para gastar
-      </th>
+          <em
+            *ngIf="(element.debt == 0) && (element.remainingDebt == 0)"
+            class="mdi mdi-progress-question mdi-24px neutral-color"
+            matTooltip="Parece que no tienes gastos registrados"
+          >
+          </em>
+        </td>
+      </ng-container>
 
-      <td mat-cell *matCellDef="let element">
-        {{ element.freeMoney | currency:'$' }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="freeMoney">
+        <th mat-header-cell *matHeaderCellDef>
+          Dinero para gastar
+        </th>
 
-    <ng-container matColumnDef="biweekly">
-      <th mat-header-cell *matHeaderCellDef>
-        Toca por quincena
-      </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.freeMoney | currency:'$' }}
+        </td>
+      </ng-container>
 
-      <td mat-cell *matCellDef="let element">
-        {{ element.biweekly | currency:'$' }}
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="biweekly">
+        <th mat-header-cell *matHeaderCellDef>
+          Toca por quincena
+        </th>
 
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.biweekly | currency:'$' }}
+        </td>
+      </ng-container>
 
-      <td mat-cell *matCellDef="let element">
-        <button mat-mini-fab color="primary" (click)="onAddPayments()">
-          <em class="mdi mdi-plus mdi-18px"></em>
-        </button>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Acciones</th>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+        <td mat-cell *matCellDef="let element">
+          <button
+            mat-mini-fab
+            color="primary"
+            class="mini-button"
+            (click)="onAddPayments(element.uuid)"
+            matTooltip="Añadir pago"
+          >
+            <em class="mdi mdi-credit-card-plus mdi-18px teal-color"></em>
+          </button>
+        </td>
+      </ng-container>
 
-  <mat-paginator [pageSizeOptions]="[20, 30, 40]" showFirstLastButtons></mat-paginator>
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell text-center" colspan="6">
+          <div *ngIf="loadData" class="w-100 mt-3 mb-3">
+            <mat-spinner color="accent" strokeWidth="3" diameter="40"></mat-spinner>
+          </div>
+
+          <span *ngIf="!loadData">
+            Aún no hay periodos registrados
+          </span>
+        </td>
+      </tr>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true;"></tr>
+      <tr
+        *matRowDef="let row; columns: displayedColumns;"
+        mat-row
+        class="pointer"
+        (click)="onRowClick(row)"
+        [class.row-is-clicked]="clickedRow === row"
+      >
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[20, 30, 40]" showFirstLastButtons></mat-paginator>
+  </div>
 </div>

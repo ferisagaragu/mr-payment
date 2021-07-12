@@ -1,0 +1,25 @@
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <em class="mdi mdi-unfold-less-vertical mdi-18px"></em>
+
+    <span>
+      Configuración de alertas
+    </span>
+  </button>
+</mat-menu>
+
+<header>
+  <div class="row">
+    <div class="col-3 mt-1">
+      <app-logo></app-logo>
+    </div>
+
+    <div class="col-9 text-end pt-1 pe-4">
+      <button mat-stroked-button [matMenuTriggerFor]="menu">
+        <em class="mdi mdi-cog mdi-26px"></em>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="space"></div>

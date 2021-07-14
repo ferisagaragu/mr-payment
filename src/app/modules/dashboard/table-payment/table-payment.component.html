@@ -1,8 +1,6 @@
 <div class="row">
   <div class="col-md-6">
-    <mat-chip-list>
-      <mat-chip>Hola</mat-chip>
-    </mat-chip-list>
+    <mat-chip-list></mat-chip-list>
   </div>
 
   <div class="col-md-6 text-end">
@@ -47,6 +45,13 @@
             matTooltip="Pago recurrente (Se cobra por siempre cada mes)"
           >
           </em>
+
+          <em
+            *ngIf="element.type === 3"
+            class="mdi mdi-calendar-star mdi-24px warn-color"
+            matTooltip="Woow que bueno que ahorras dinero"
+          >
+          </em>
         </span>
 
         <mat-form-field *ngIf="element.edit" class="w-55 mt-3" appearance="outline">
@@ -66,6 +71,10 @@
             <mat-option [value]="2">
               Recurrente
             </mat-option>
+
+            <mat-option [value]="3">
+              Ahorro
+            </mat-option>
           </mat-select>
         </mat-form-field>
       </td>
@@ -77,9 +86,16 @@
       </th>
 
       <td mat-cell *matCellDef="let element">
-      <span *ngIf="!element.edit">
-        {{ element.name }}
-      </span>
+        <strong
+          *ngIf="!element.edit && element.type === 3"
+          class="warn-color"
+        >
+          {{ element.name }}
+        </strong>
+
+        <span *ngIf="!element.edit && element.type !== 3">
+          {{ element.name }}
+        </span>
 
         <mat-form-field *ngIf="element.edit" class="w-88 mt-3" appearance="outline">
           <mat-label>Nombre</mat-label>
@@ -99,22 +115,31 @@
       </th>
 
       <td mat-cell *matCellDef="let element">
-      <span *ngIf="!element.edit">
-        {{ element.quantity | currency: '$' }}
+        <span *ngIf="!element.edit">
+          <strong
+            *ngIf="!element.edit && element.type === 3"
+            class="warn-color"
+          >
+            {{ element.quantity }}
+          </strong>
 
-        <span
-          *ngIf="element.monthCount"
-          class="pink-color"
-          [matTooltip]="
-            element.monthCount === 1 ?
-              'Este es tu ultimo pago'
-            :
-              'Quedan ' + (element.monthCount - 1) + ' pago(s) restante(s)'
-          "
-        >
-          ({{ element.monthCount }})
+          <span *ngIf="!element.edit && element.type !== 3">
+            {{ element.quantity | currency: '$' }}
+          </span>
+
+          <span
+            *ngIf="element.monthCount"
+            class="pink-color"
+            [matTooltip]="
+              element.monthCount === 1 ?
+                'Este es tu ultimo pago'
+              :
+                'Quedan ' + (element.monthCount - 1) + ' pago(s) restante(s)'
+            "
+          >
+            ({{ element.monthCount }})
+          </span>
         </span>
-      </span>
 
         <mat-form-field *ngIf="element.edit" class="w-50 mt-3" appearance="outline">
           <mat-label>Cantidad</mat-label>
@@ -135,9 +160,9 @@
       </th>
 
       <td mat-cell *matCellDef="let element">
-      <span *ngIf="!element.edit">
-        {{ element.startDate | date }} - {{ element.endDate | date }}
-      </span>
+        <span *ngIf="!element.edit">
+          {{ element.startDate | date }} - {{ element.endDate | date }}
+        </span>
 
         <mat-form-field *ngIf="element.edit" class="w-88 mt-3" appearance="outline">
           <mat-label>Periodo de pago</mat-label>
@@ -191,6 +216,7 @@
 
         <mat-checkbox
           *ngIf="!element.checkLoad"
+          [class.save-check]="element.type === 3 && element.pay"
           [checked]="element.pay"
           [disabled]="disableAll"
           (change)="onSetPaid(element.uuid, $event)"
@@ -235,7 +261,7 @@
           class="mini-button me-2"
           type="button"
           matTooltip="Aceptar"
-          (click)="update()"
+          (click)="update(element.uuid)"
         >
           <em class="mdi mdi-check mdi-18px success-color"></em>
         </button>

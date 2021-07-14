@@ -25,6 +25,7 @@ import { DATE_FORMAT } from '../core/formats/date.format';
 
 import { LogoComponent } from './logo/logo.component';
 import { HeaderComponent } from './header/header.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   providers: [
@@ -39,7 +40,8 @@ import { HeaderComponent } from './header/header.component';
   ],
 	declarations: [
 		LogoComponent,
-    HeaderComponent
+    HeaderComponent,
+    AlertComponent
 	],
   imports: [
     CommonModule,
@@ -80,7 +82,8 @@ import { HeaderComponent } from './header/header.component';
     MatChipsModule,
     MatMenuModule,
 
-    HeaderComponent
+    HeaderComponent,
+    AlertComponent
 	]
 })
 export class SharedModule { }

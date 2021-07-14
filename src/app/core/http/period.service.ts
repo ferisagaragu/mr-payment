@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { PeriodModel } from '../models/period.model';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { PeriodDetailModel } from '../models/period-detail.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,20 +14,20 @@ export class PeriodService {
   constructor(private http: HttpClient) { }
 
   findAll(): Observable<Array<PeriodModel>> {
-    return this.http.get('http://localhost:5000/rest/period').pipe(
+    return this.http.get(`${environment.baseUrl}/periods`).pipe(
       map((resp:any) => resp.data.map(data => new PeriodModel(data)))
     );
   }
 
-  findPeriodDetail(periodUuid: string): Observable<any> {
-    return this.http.get(`http://localhost:5000/rest/period/detail/${periodUuid}`).pipe(
-      map((resp: any) => resp.data)
+  findPeriodDetail(periodUuid: string): Observable<PeriodDetailModel> {
+    return this.http.get(`${environment.baseUrl}/periods/detail/${periodUuid}`).pipe(
+      map((resp: any) => new PeriodDetailModel(resp.data))
     );
   }
 
   calculateNext(): Observable<any> {
     return this.http.post(
-      'http://localhost:5000/rest/period/calculate-next',
+      `${environment.baseUrl}/periods/calculate-next`,
       { }
     );
   }

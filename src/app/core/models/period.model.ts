@@ -7,6 +7,9 @@ export class PeriodModel {
   debt: number;
   date: Date;
   remainingDebt: number;
+  freeMoney: number;
+  biweekly: number;
+  enable: boolean;
 
   constructor(data: PeriodModel | any) {
     Object.assign(this, data);

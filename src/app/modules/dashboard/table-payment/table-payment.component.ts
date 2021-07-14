@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaymentService } from '../../../core/http/payment.service';
@@ -31,12 +31,12 @@ export class TablePaymentComponent implements OnInit, AfterViewInit {
   constructor(
     private formBuilder: FormBuilder,
     private paymentService: PaymentService,
-    @Inject(MAT_DIALOG_DATA) public data: string
+    @Inject(MAT_DIALOG_DATA) public data: { periodUuid: string, enable: boolean }
   ) {
-    this.periodUuid = data;
+    this.periodUuid = data.periodUuid;
     this.dataSource = new MatTableDataSource<any>();
     this.displayedColumns = tablePaymentColumns;
-    this.disableAll = false;
+    this.disableAll = !data.enable
     this.form = this.formBuilder.group({ });
     this.todayDate = new Date();
     this.loadData = false;
@@ -83,12 +83,21 @@ export class TablePaymentComponent implements OnInit, AfterViewInit {
     });
   }
 
-  update(): void {
+  update(paymentUuid: string): void {
     if (this.form.invalid) {
       return;
     }
 
-    console.log(this.form.value)
+    const payment = this.payments.find(payment => payment.uuid === paymentUuid);
+    payment.load = true;
+
+    this.paymentService.updatePayment({
+      ...payment,
+      ...this.form.value
+    }).subscribe(_ => {
+      this.reloadData();
+      this.disableAll = false;
+    });
   }
 
   onAdd() {
@@ -100,15 +109,14 @@ export class TablePaymentComponent implements OnInit, AfterViewInit {
     });
     this.dataSource.data = this.payments;
     this.dataSource.paginator = this.paginator;
-    this.onChangeType(PaymentTypeEnum.UNIQUE);
+    this.createForm();
   }
 
   onUpdate(paymentUuid: string): void {
     const payment = this.payments.find(payment => payment.uuid === paymentUuid);
     payment.edit = true;
     this.disableAll = true;
-
-    this.onChangeType(null, payment);
+    this.createForm(payment);
   }
 
   onRemove(paymentUuid: string) {
@@ -146,31 +154,41 @@ export class TablePaymentComponent implements OnInit, AfterViewInit {
     this.disableAll = false;
   }
 
-  onChangeType(event: PaymentTypeEnum | undefined, payment?: any): void {
+  onChangeType(event: PaymentTypeEnum): void {
+    this.paymentType = event;
+
     if (
-      event === PaymentTypeEnum.UNIQUE || event === PaymentTypeEnum.RECURRENT ||
-      payment?.type === PaymentTypeEnum.UNIQUE || payment?.type === PaymentTypeEnum.RECURRENT
+      event === PaymentTypeEnum.UNIQUE ||
+      event === PaymentTypeEnum.RECURRENT ||
+      event === PaymentTypeEnum.SAVE
     ) {
-      this.paymentType = PaymentTypeEnum.UNIQUE;
-      this.form = this.formBuilder.group({
-        type: [payment ? payment.type : event],
-        name: [payment ? payment.name : null, Validators.required],
-        quantity: [payment ? payment.quantity : null, Validators.required],
-        startDate: [],
-        endDate: [],
-        totalQuantity: [{ value: null, disabled: true }]
-      });
+      this.form.get('quantity').enable();
+
+      this.form.get('startDate').setValue(null);
+      this.form.get('startDate').disable();
+      this.form.get('endDate').setValue(null);
+      this.form.get('endDate').disable();
+      this.form.get('totalQuantity').setValue(null);
+      this.form.get('totalQuantity').disable();
     } else {
-      this.paymentType = PaymentTypeEnum.MONTHLY;
-      this.form = this.formBuilder.group({
-        type: [payment ? payment.type : event],
-        name: [payment ? payment.name : null, Validators.required],
-        quantity: [{ value: null, disabled: true }],
-        startDate: [payment ? payment.startDate : null],
-        endDate: [payment ? payment.endDate : null],
-        totalQuantity: [payment ? payment.totalQuantity : null]
-      });
+      this.form.get('startDate').enable();
+      this.form.get('endDate').enable();
+      this.form.get('totalQuantity').enable();
+
+      this.form.get('quantity').setValue(null);
+      this.form.get('quantity').disable();
     }
+  }
+
+  private createForm(payment?: any): void {
+    this.form = this.formBuilder.group({
+      type: [payment ? payment.type : 0],
+      name: [payment ? payment.name : null, Validators.required],
+      quantity: [payment ? payment.quantity : null, Validators.required],
+      startDate: [{ value: null, disabled: true }, Validators.required],
+      endDate: [{ value: null, disabled: true }, Validators.required],
+      totalQuantity: [{ value: null, disabled: true }, Validators.required]
+    });
   }
 
   private reloadData(): void {

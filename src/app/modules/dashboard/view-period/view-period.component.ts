@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-view-period',
   templateUrl: './view-period.component.html',
   styleUrls: ['./view-period.component.scss']
 })
-export class ViewPeriodComponent implements OnInit {
+export class ViewPeriodComponent {
 
-  constructor() { }
+  day: number;
 
-  ngOnInit(): void {
+  constructor() {
+    this.day = parseInt(moment().format('DD'));
   }
 
 }

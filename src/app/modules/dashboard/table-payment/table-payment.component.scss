@@ -32,3 +32,12 @@
   width: 14.28571428571429% !important;
   text-align: center;
 }
+
+::ng-deep .save-check.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+  opacity: 0.03 !important;
+  background-color: #FFC107 !important;
+}
+
+::ng-deep .save-check.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+  background-color: #FFC107 !important;
+}

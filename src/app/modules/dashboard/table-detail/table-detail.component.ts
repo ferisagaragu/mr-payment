@@ -20,7 +20,7 @@ export class TableDetailComponent implements OnInit, AfterViewInit {
   displayedColumns: string[];
   dataSource: MatTableDataSource<PeriodModel>;
   loadData: boolean;
-  clickedRow: any;
+  selectedPeriodUuid: string;
   periodDetail: any;
   periodLoad: boolean;
 
@@ -49,11 +49,11 @@ export class TableDetailComponent implements OnInit, AfterViewInit {
     this.dataSource.paginator = this.paginator;
   }
 
-  onAddPayments(periodUuid: string): void {
+  onAddPayments(periodUuid: string, enable: boolean): void {
     this.dialog.open(
       TablePaymentComponent,
       {
-        data: periodUuid,
+        data: { periodUuid, enable},
         width: '95%',
         height: '75%',
         maxWidth: 'none',
@@ -62,36 +62,40 @@ export class TableDetailComponent implements OnInit, AfterViewInit {
     );
   }
 
-  private subscribeOnPay() {
+  onRowClick(periodUuid: string, notLoad?: boolean): void {
+    this.selectedPeriodUuid = periodUuid;
+    this.periodLoad = true && !notLoad;
+
+    this.periodService.findPeriodDetail(periodUuid).subscribe(resp => {
+      this.periodDetail = resp;
+      this.periodLoad = false;
+    });
+  }
+
+  private subscribeOnPay(): void {
     this.paymentService.onPay.subscribe(_ => this.reloadData());
   }
 
-  private calculateNext() {
+  private calculateNext(): void {
     this.periodService.calculateNext().subscribe(resp => {
       if (resp.status) {
-        this.reloadData();
+        this.reloadData(true);
       }
     });
   }
 
-  onRowClick(row: any): void {
-    this.clickedRow = row;
-    this.periodLoad = true;
-
-    this.periodService.findPeriodDetail(row.uuid).subscribe(resp => {
-      this.periodDetail = resp;
-      this.periodLoad = false;
-      console.log(resp);
-    });
-  }
-
-  private reloadData(): void {
-    this.dataSource.data = [];
-    this.loadData = true;
+  private reloadData(notLoad?: boolean): void {
+    if (!notLoad) {
+      this.dataSource.data = [];
+      this.loadData = true;
+    }
 
     this.periodService.findAll().subscribe(resp => {
       this.dataSource.data = resp;
       this.loadData = false;
+
+      const period = resp.find(period => period.enable);
+      this.onRowClick(period.uuid, notLoad);
     });
   }
 

@@ -1,0 +1,18 @@
+<div
+  class="alert-container swing-in-top-fwd"
+  [class.alert-success-container]="type === 'success'"
+>
+  <em
+    class="mdi alert-icon"
+    [class.alert-success-icon]="type === 'success'"
+    [class.mdi-check-circle]="type === 'success'"
+    [class.mdi-alert-circle]="type === 'warning'"
+  >
+  </em>
+
+  <em class="alert-background"></em>
+
+  <div class="alert-content">
+    <ng-content></ng-content>
+  </div>
+</div>

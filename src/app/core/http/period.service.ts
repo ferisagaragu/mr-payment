@@ -25,11 +25,4 @@ export class PeriodService {
     );
   }
 
-  calculateNext(): Observable<any> {
-    return this.http.post(
-      `${environment.baseUrl}/periods/calculate-next`,
-      { }
-    );
-  }
-
 }

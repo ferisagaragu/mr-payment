@@ -12,7 +12,6 @@ export class ChipDetailComponent implements OnInit {
   @Input() unique: number;
   @Input() monthly: number;
   @Input() recurrent: number;
-  @Input() save: number;
 
   totalSave: number;
 
@@ -21,7 +20,6 @@ export class ChipDetailComponent implements OnInit {
     this.unique = 0;
     this.monthly = 0;
     this.recurrent = 0;
-    this.save = 0;
     this.totalSave = 0;
   }
 

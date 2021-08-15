@@ -52,6 +52,16 @@ thead>tr>th {
   font-weight: bold;
 }
 
+.hard-color {
+  color: #C62828 !important;
+  font-weight: bold;
+}
+
+.medium-color {
+  color: #EF6C00 !important;
+  font-weight: bold;
+}
+
 .w-88 {
   width: 88% !important;
 }
@@ -86,4 +96,11 @@ thead>tr>th {
 
 .mdi-26px {
   font-size: 26px !important;
+}
+
+.row-is-clicked {
+  background: #E0F2F1;
+  border-left-width: 3px;
+  border-style: solid;
+  border-color: #009688;
 }

@@ -14,16 +14,12 @@
       <mat-chip *ngIf="(recurrent || recurrent === 0) && !load" class="recurrent-chip">
         Pagos recurrentes: {{ recurrent | currency: '$' }}
       </mat-chip>
-
-      <mat-chip *ngIf="(save || save === 0) && !load" class="save-chip">
-        Dinero ahorrado: {{ save | currency: '$' }}
-      </mat-chip>
     </mat-chip-list>
   </div>
 
   <div class="col-md-3 right-container text-end">
     <mat-chip class="save-total-chip">
-      Dinero ahorrado: {{ totalSave | currency: '$' }}
+      Dinero ahorrado: {{ totalSave? totalSave : 0 | currency: '$' }}
     </mat-chip>
   </div>
 </div>

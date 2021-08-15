@@ -26,6 +26,8 @@ import { DATE_FORMAT } from '../core/formats/date.format';
 import { LogoComponent } from './logo/logo.component';
 import { HeaderComponent } from './header/header.component';
 import { AlertComponent } from './alert/alert.component';
+import { FormIndicatorComponent } from './form-indicator/form-indicator.component';
+import { UrxAlertModule, UrxFormatModule } from 'ng-urxnium';
 
 @NgModule({
   providers: [
@@ -41,7 +43,8 @@ import { AlertComponent } from './alert/alert.component';
 	declarations: [
 		LogoComponent,
     HeaderComponent,
-    AlertComponent
+    AlertComponent,
+    FormIndicatorComponent
 	],
   imports: [
     CommonModule,
@@ -61,29 +64,34 @@ import { AlertComponent } from './alert/alert.component';
     MatSelectModule,
     MatProgressSpinnerModule,
     MatChipsModule,
-    MatMenuModule
+    MatMenuModule,
+    UrxAlertModule,
+    UrxFormatModule
   ],
 	exports: [
-    ReactiveFormsModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatButtonModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatDialogModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatSlideToggleModule,
-    MatTooltipModule,
-    MatSelectModule,
-    MatProgressSpinnerModule,
-    MatChipsModule,
-    MatMenuModule,
+		ReactiveFormsModule,
+		MatPaginatorModule,
+		MatTableModule,
+		MatButtonModule,
+		MatIconModule,
+		MatDatepickerModule,
+		MatInputModule,
+		MatFormFieldModule,
+		MatDialogModule,
+		MatCardModule,
+		MatCheckboxModule,
+		MatSlideToggleModule,
+		MatTooltipModule,
+		MatSelectModule,
+		MatProgressSpinnerModule,
+		MatChipsModule,
+		MatMenuModule,
+    UrxAlertModule,
+    UrxFormatModule,
 
-    HeaderComponent,
-    AlertComponent
+		HeaderComponent,
+		AlertComponent,
+		LogoComponent
 	]
 })
 export class SharedModule { }

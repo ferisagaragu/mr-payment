@@ -1,0 +1,60 @@
+<form  class="p-3" [formGroup]="form" (ngSubmit)="save()">
+
+  <h3>Configuración de alertas</h3>
+
+  <mat-form-field class="w-100 mt-2" appearance="outline">
+    <mat-label>Gastos moderados</mat-label>
+
+    <input
+      matInput
+      required
+      formControlName="lowQuantity"
+      type="number"
+    >
+
+    <mat-error>
+      El número para el indicador de gastos moderados es requerido
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mt-2" appearance="outline">
+    <mat-label>Gastos altos</mat-label>
+
+    <input
+      matInput
+      required
+      formControlName="mediumQuantity"
+      type="number"
+    >
+
+    <mat-error>
+      El número para el indicador de gastos altos es requerido
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mt-2" appearance="outline">
+    <mat-label>Gastos muy altos</mat-label>
+
+    <input
+      matInput
+      required
+      formControlName="hardQuantity"
+      type="number"
+    >
+
+    <mat-error>
+      El número para el indicador de gastos muy altos es requerido
+    </mat-error>
+  </mat-form-field>
+
+  <div class="w-100 text-end mt-2">
+    <button
+      mat-stroked-button
+      color="accent"
+    >
+      <em class="mdi mdi-content-save"></em>
+      Guardar
+    </button>
+  </div>
+</form>
+

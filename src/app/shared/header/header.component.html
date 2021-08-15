@@ -1,9 +1,17 @@
 <mat-menu #menu="matMenu">
-  <button mat-menu-item>
+  <button mat-menu-item (click)="onSettings()">
     <em class="mdi mdi-unfold-less-vertical mdi-18px"></em>
 
     <span>
       Configuración de alertas
+    </span>
+  </button>
+
+  <button mat-menu-item (click)="onSettings()">
+    <em class="mdi mdi-webhook mdi-18px"></em>
+
+    <span>
+      Configuración de notificaciones
     </span>
   </button>
 </mat-menu>
@@ -15,7 +23,10 @@
     </div>
 
     <div class="col-9 text-end pt-1 pe-4">
-      <button mat-stroked-button [matMenuTriggerFor]="menu">
+      <button
+        mat-stroked-button
+        [matMenuTriggerFor]="menu"
+      >
         <em class="mdi mdi-cog mdi-26px"></em>
       </button>
     </div>

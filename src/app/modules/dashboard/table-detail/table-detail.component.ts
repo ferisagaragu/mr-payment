@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { TablePaymentComponent } from '../table-payment/table-payment.component';
 import { PaymentService } from '../../../core/http/payment.service';
 import { tableDetailColumns } from '../../../core/columns/table-detail.columns';
+import { AlertConfigService } from '../../../core/http/alert-config.service';
+import { AlertConfigModel } from '../../../core/models/alert-config.model';
 
 @Component({
   selector: 'app-table-detail',
@@ -23,6 +25,7 @@ export class TableDetailComponent implements OnInit, AfterViewInit {
   selectedPeriodUuid: string;
   periodDetail: any;
   periodLoad: boolean;
+  alertConfig: AlertConfigModel;
 
   settings = {
     highPayments: 3000,
@@ -33,6 +36,7 @@ export class TableDetailComponent implements OnInit, AfterViewInit {
   constructor(
     private periodService: PeriodService,
     private paymentService: PaymentService,
+    private alertConfigService: AlertConfigService,
     public dialog: MatDialog
   ) {
     this.displayedColumns = tableDetailColumns;
@@ -41,8 +45,8 @@ export class TableDetailComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit() {
+    this.subscribeOnConfig();
     this.subscribeOnPay();
-    this.calculateNext();
   }
 
   ngAfterViewInit() {
@@ -54,7 +58,7 @@ export class TableDetailComponent implements OnInit, AfterViewInit {
       TablePaymentComponent,
       {
         data: { periodUuid, enable},
-        width: '95%',
+        width: '96%',
         height: '75%',
         maxWidth: 'none',
         maxHeight: 'none'
@@ -62,9 +66,9 @@ export class TableDetailComponent implements OnInit, AfterViewInit {
     );
   }
 
-  onRowClick(periodUuid: string, notLoad?: boolean): void {
+  onRowClick(periodUuid: string): void {
     this.selectedPeriodUuid = periodUuid;
-    this.periodLoad = true && !notLoad;
+    this.periodLoad = true;
 
     this.periodService.findPeriodDetail(periodUuid).subscribe(resp => {
       this.periodDetail = resp;
@@ -76,26 +80,26 @@ export class TableDetailComponent implements OnInit, AfterViewInit {
     this.paymentService.onPay.subscribe(_ => this.reloadData());
   }
 
-  private calculateNext(): void {
-    this.periodService.calculateNext().subscribe(resp => {
-      if (resp.status) {
-        this.reloadData(true);
-      }
+  private subscribeOnConfig(): void {
+    this.alertConfigService.onConfig.subscribe(_ => this.findAlertConfig());
+  }
+
+  private findAlertConfig(): void {
+    this.alertConfigService.findAlertConfig().subscribe(resp => {
+      this.alertConfig = resp;
     });
   }
 
-  private reloadData(notLoad?: boolean): void {
-    if (!notLoad) {
-      this.dataSource.data = [];
-      this.loadData = true;
-    }
+  private reloadData(): void {
+    this.dataSource.data = [];
+    this.loadData = true;
 
     this.periodService.findAll().subscribe(resp => {
       this.dataSource.data = resp;
       this.loadData = false;
 
       const period = resp.find(period => period.enable);
-      this.onRowClick(period.uuid, notLoad);
+      this.onRowClick(period.uuid);
     });
   }
 

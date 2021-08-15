@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaymentService } from '../../../core/http/payment.service';
@@ -7,7 +7,8 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { PaymentTypeEnum } from '../../../core/enums/payment-type.enum';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { tablePaymentColumns } from '../../../core/columns/table-payment.columns';
-import Swal from 'sweetalert2';
+import { SweetAlert2Service } from 'ng-urxnium';
+import { currentFormat } from '../../../core/formats/current.format';
 
 @Component({
   selector: 'app-table-payment',
@@ -27,10 +28,13 @@ export class TablePaymentComponent implements OnInit, AfterViewInit {
   paymentType: PaymentTypeEnum;
   todayDate: Date;
   loadData: boolean;
+  selectedPaymentUuid: string;
+  maskAliases: any;
 
   constructor(
     private formBuilder: FormBuilder,
     private paymentService: PaymentService,
+    private swal: SweetAlert2Service,
     @Inject(MAT_DIALOG_DATA) public data: { periodUuid: string, enable: boolean }
   ) {
     this.periodUuid = data.periodUuid;
@@ -40,6 +44,7 @@ export class TablePaymentComponent implements OnInit, AfterViewInit {
     this.form = this.formBuilder.group({ });
     this.todayDate = new Date();
     this.loadData = false;
+    this.maskAliases = currentFormat;
   }
 
   ngOnInit(): void {
@@ -120,20 +125,18 @@ export class TablePaymentComponent implements OnInit, AfterViewInit {
   }
 
   onRemove(paymentUuid: string) {
-    Swal.fire({
+    this.swal.fire({
+      theme: 'material',
       icon: 'question',
       title: '¿Quieres borrar el pago?',
-      text:
-        'Toma en cuenta que una vez eliminado no podrás recuperarlo. ' +
+      text: 'Toma en cuenta que una vez eliminado no podrás recuperarlo. ' +
         'Si estas eliminando algún pago recurrente o mensual, este ya no ' +
         'se generara el próximo mes.',
-      cancelButtonText: 'Cancelar',
-      confirmButtonText: 'Aceptar',
       showCancelButton: true,
-      reverseButtons: true,
       allowOutsideClick: false,
-    }).then(resp => {
-      if (resp.isConfirmed) {
+      materialButtonsColor: '#3f51b5'
+    }).subscribe(resp => {
+      if (resp) {
         const payment = this.payments.find(payment => payment.uuid === paymentUuid);
         payment.load = true;
         this.paymentService.deletePayment(paymentUuid).subscribe(_ => this.reloadData());

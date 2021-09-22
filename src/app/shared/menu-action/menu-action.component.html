@@ -1,0 +1,65 @@
+<mat-nav-list>
+  <a *ngIf="type === 'detail'" mat-list-item (click)="onAddPayments()">
+    <div class="row">
+      <div class="col-md-1 div-icon">
+        <div class="item-icon">
+          <em class="mdi mdi-credit-card-plus teal-color"></em>
+        </div>
+      </div>
+
+      <div class="col-md-8 ms-4">
+        <span mat-line>Mis Pagos de {{ name }}</span>
+        <span mat-line>Ver, crea y editar pagos</span>
+      </div>
+    </div>
+  </a>
+
+  <a *ngIf="type === 'payment'" mat-list-item (click)="onAddPayment()">
+    <div class="row">
+      <div class="col-md-1 div-icon">
+        <div class="item-icon">
+          <em class="mdi mdi-plus success-color"></em>
+        </div>
+      </div>
+
+      <div class="col-md-8 ms-4">
+        <span mat-line>Nuevo Pago</span>
+        <span mat-line>Crea un pago</span>
+      </div>
+    </div>
+  </a>
+
+  <a
+    *ngIf="type === 'payment' && disableOption !== 'update'"
+     mat-list-item
+    (click)="onUpdatePayment()"
+  >
+    <div class="row">
+      <div class="col-md-1 div-icon">
+        <div class="item-icon">
+          <em class="mdi mdi-pencil neutral-color"></em>
+        </div>
+      </div>
+
+      <div class="col-md-8 ms-4">
+        <span mat-line>Editar Pago</span>
+        <span mat-line>Reajusta los datos del pago</span>
+      </div>
+    </div>
+  </a>
+
+  <a *ngIf="type === 'payment'" mat-list-item (click)="onRemovePayment()">
+    <div class="row">
+      <div class="col-md-1 div-icon">
+        <div class="item-icon">
+          <em class="mdi mdi-trash-can error-color"></em>
+        </div>
+      </div>
+
+      <div class="col-md-8 ms-4">
+        <span mat-line>Eliminar Pago</span>
+        <span mat-line>Remover el pago</span>
+      </div>
+    </div>
+  </a>
+</mat-nav-list>

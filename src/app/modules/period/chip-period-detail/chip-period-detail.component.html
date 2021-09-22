@@ -1,0 +1,23 @@
+<div class="row p-4">
+  <div class="col-md-9 left-container">
+    <mat-chip-list>
+      <mat-chip *ngIf="(periodDetail?.unique || periodDetail?.unique === 0)" class="unique-chip">
+        Pagos unicos: {{ periodDetail?.unique | currency: '$' }}
+      </mat-chip>
+
+      <mat-chip *ngIf="(periodDetail?.monthly || periodDetail?.monthly === 0)" class="monthly-chip">
+        Pagos mensuales: {{ periodDetail?.monthly | currency: '$' }}
+      </mat-chip>
+
+      <mat-chip *ngIf="(periodDetail?.recurrent || periodDetail?.recurrent === 0)" class="recurrent-chip">
+        Pagos recurrentes: {{ periodDetail?.recurrent | currency: '$' }}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+
+  <div class="col-md-3 right-container text-end">
+    <mat-chip class="save-total-chip">
+      Dinero ahorrado: {{ totalSave? totalSave : 0 | currency: '$' }}
+    </mat-chip>
+  </div>
+</div>

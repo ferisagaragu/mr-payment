@@ -9,47 +9,35 @@ import { environment } from '../../../environments/environment';
 })
 export class PaymentService {
 
-  public onPay: BehaviorSubject<void>;
+  public onChange: BehaviorSubject<any>;
 
   constructor(private http: HttpClient) {
-    this.onPay = new BehaviorSubject<void>(null);
+    this.onChange = new BehaviorSubject<any>(null);
   }
 
-  findAll(paymentUuid: string): Observable<Array<any>> {
+  findAll(paymentUuid: string): Observable<any> {
     return this.http.get(`${environment.baseUrl}/payments/${paymentUuid}`).pipe(
-      map((resp: any) => resp.data.map(data => data))
+      map((resp: any) => ({ detail: resp.detail, data: resp.data.map(data => data) }))
     );
   }
 
   createPayment(payment: any): Observable<any> {
-    return this.http.post(`${environment.baseUrl}/payments`, payment).pipe(map(resp => {
-      this.onPay.next();
-      return resp;
-    }));
+    return this.http.post(`${environment.baseUrl}/payments`, payment).pipe(map(resp => resp));
   }
 
   updatePayment(payment: any): Observable<any> {
-    return this.http.put(`${environment.baseUrl}/payments`, payment).pipe(map(resp => {
-      this.onPay.next();
-      return resp;
-    }));
+    return this.http.put(`${environment.baseUrl}/payments`, payment).pipe(map(resp => resp));
   }
 
   setPaymentPaid(paymentUuid: string, pay: boolean): Observable<any> {
     return this.http.patch(
       `${environment.baseUrl}/payments`,
       { uuid: paymentUuid, pay }
-    ).pipe(map(resp => {
-      this.onPay.next();
-      return resp;
-    }));
+    ).pipe(map(resp => resp));
   }
 
   deletePayment(paymentUuid: string): Observable<any> {
-    return this.http.delete(`${environment.baseUrl}/payments/${paymentUuid}`).pipe(map(resp => {
-      this.onPay.next();
-      return resp;
-    }));
+    return this.http.delete(`${environment.baseUrl}/payments/${paymentUuid}`).pipe(map(resp => resp));
   }
 
 }

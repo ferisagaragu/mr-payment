@@ -1,10 +1,13 @@
+* {
+  font-family: 'Raleway', sans-serif;
+}
+
 html, body {
   height: 100%;
 }
 
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
   background: #fafafa;
 }
 
@@ -103,4 +106,44 @@ thead>tr>th {
   border-left-width: 3px;
   border-style: solid;
   border-color: #009688;
+}
+
+.row-is-disabled {
+  pointer-events: none;
+  background: lightgray !important;
+  border-color: transparent !important;
+}
+
+.row-is-disabled>.mat-cell {
+  color: gray !important;
+}
+
+.row-is-disabled>.mat-cell>.pink-color {
+  color: gray !important;
+}
+
+.row-is-disabled>.mat-cell>.orange-color {
+  color: gray !important;
+}
+
+.row-is-disabled>.mat-cell>.neutral-color {
+  color: gray !important;
+}
+
+.row-is-disabled>.mat-cell>.warn-color {
+  color: gray !important;
+}
+
+.mat-list-base .mat-list-item .mat-line {
+  overflow: unset !important;
+  text-overflow: unset !important;
+}
+
+.mat-sort-header-container>.mat-sort-header-content {
+  width: 100% !important;
+  display: block !important;
+}
+
+.delete-alert-state {
+  background: transparent !important;
 }

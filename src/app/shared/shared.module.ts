@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { RouterModule } from '@angular/router';
 
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -20,14 +21,21 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatListModule } from '@angular/material/list';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { DATE_FORMAT } from '../core/formats/date.format';
+
+import { UrxAlertModule, UrxFormatModule, UrxGridModule } from 'ng-urxnium';
 
 import { LogoComponent } from './logo/logo.component';
 import { HeaderComponent } from './header/header.component';
 import { AlertComponent } from './alert/alert.component';
 import { FormIndicatorComponent } from './form-indicator/form-indicator.component';
-import { UrxAlertModule, UrxFormatModule } from 'ng-urxnium';
+import { MenuActionComponent } from './menu-action/menu-action.component';
+import { SectionAlertPeriodComponent } from './section-alert-period/section-alert-period.component';
 
 @NgModule({
   providers: [
@@ -44,7 +52,9 @@ import { UrxAlertModule, UrxFormatModule } from 'ng-urxnium';
 		LogoComponent,
     HeaderComponent,
     AlertComponent,
-    FormIndicatorComponent
+    FormIndicatorComponent,
+    MenuActionComponent,
+    SectionAlertPeriodComponent
 	],
   imports: [
     CommonModule,
@@ -65,8 +75,14 @@ import { UrxAlertModule, UrxFormatModule } from 'ng-urxnium';
     MatProgressSpinnerModule,
     MatChipsModule,
     MatMenuModule,
+    MatBottomSheetModule,
+    MatListModule,
+    MatSortModule,
+    MatSnackBarModule,
+    RouterModule,
     UrxAlertModule,
-    UrxFormatModule
+    UrxFormatModule,
+    UrxGridModule
   ],
 	exports: [
 		ReactiveFormsModule,
@@ -86,12 +102,18 @@ import { UrxAlertModule, UrxFormatModule } from 'ng-urxnium';
 		MatProgressSpinnerModule,
 		MatChipsModule,
 		MatMenuModule,
+    MatBottomSheetModule,
+    MatListModule,
+    MatSortModule,
+    MatSnackBarModule,
     UrxAlertModule,
     UrxFormatModule,
 
 		HeaderComponent,
 		AlertComponent,
-		LogoComponent
+		LogoComponent,
+    MenuActionComponent,
+    SectionAlertPeriodComponent
 	]
 })
 export class SharedModule { }

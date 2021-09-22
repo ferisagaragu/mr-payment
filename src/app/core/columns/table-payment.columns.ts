@@ -4,6 +4,5 @@ export const tablePaymentColumns = [
   'quantity',
   'date',
   'totalQuantity',
-  'pay',
-  'actions'
+  'pay'
 ];

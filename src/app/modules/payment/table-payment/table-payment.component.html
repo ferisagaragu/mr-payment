@@ -1,0 +1,192 @@
+<div class="mat-elevation-z8">
+  <div #tableContainer class="table-container scroll">
+    <table mat-table matSort [dataSource]="dataSource">
+      <ng-container matColumnDef="type">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          Tipo
+        </th>
+
+        <td *matCellDef="let element" mat-cell>
+          <em
+            *ngIf="element.type === 0"
+            class="mdi mdi-calendar-check mdi-24px neutral-color"
+            matTooltip="Pago unico"
+          >
+          </em>
+
+          <em
+            *ngIf="element.type === 1"
+            class="mdi mdi-calendar mdi-24px pink-color"
+            matTooltip="Pago mensual"
+          >
+          </em>
+
+          <em
+            *ngIf="element.type === 2"
+            class="mdi mdi-calendar-arrow-right mdi-24px orange-color"
+            matTooltip="Pago recurrente (Se cobra por siempre cada mes)"
+          >
+          </em>
+
+          <em
+            *ngIf="element.type === 3"
+            class="mdi mdi-calendar-star mdi-24px warn-color"
+            matTooltip="Woow que bueno que ahorras dinero"
+          >
+          </em>
+
+          <em
+            *ngIf="element.type === 4"
+            class="mdi mdi-calendar-heart mdi-24px success-color"
+            matTooltip="Woow que bueno que conseguiste mas dinero"
+          >
+          </em>
+
+          <em
+            *ngIf="element.type === 5"
+            class="mdi mdi-calendar-alert mdi-24px error-color"
+            matTooltip="Recuerda que siempre hay que recuperar lo que prestas"
+          >
+          </em>
+        </td>
+
+        <td mat-footer-cell *matFooterCellDef>
+          Total:
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          Nombre
+        </th>
+
+        <td *matCellDef="let element" mat-cell>
+          {{ element.name }}
+        </td>
+
+        <td *matFooterCellDef mat-footer-cell>
+          {{ totalMoney | currency: '$' }}/
+          <em>{{ debt | currency: '$' }}</em>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantity">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          Cantidad
+        </th>
+
+        <td *matCellDef="let element" mat-cell>
+          <span>
+            {{ element.quantity | currency: '$' }}
+          </span>
+
+          <span
+            *ngIf="element.monthCount"
+            class="pink-color"
+            [matTooltip]="
+              element.monthCount === 1 ?
+                'Este es tu ultimo pago'
+              :
+                'Quedan ' + (element.monthCount - 1) + ' pago(s) restante(s)'
+            "
+          >
+            ({{ element.monthCount }})
+          </span>
+        </td>
+
+        <td *matFooterCellDef mat-footer-cell>
+          Por pagar:
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          Periodo de pago
+        </th>
+
+        <td *matCellDef="let element" mat-cell>
+          {{ element.startDate | date }} - {{ element.endDate | date }}
+        </td>
+
+        <td *matFooterCellDef mat-footer-cell>
+          {{ remainingDebt | currency: '$' }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="totalQuantity">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          Cantidad total
+        </th>
+
+        <td *matCellDef="let element" mat-cell>
+          <span>
+            {{ element.totalQuantity | currency: '$' }}
+          </span>
+
+          <span *ngIf="!element.totalQuantity">
+            -
+          </span>
+        </td>
+
+        <td *matFooterCellDef mat-footer-cell>
+          Toca individual:
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="pay">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+          Pagado
+        </th>
+
+        <td *matCellDef="let element" mat-cell>
+          <em *ngIf="element.checkLoad" class="mdi mdi-loading mdi-spin"></em>
+
+          <mat-checkbox
+            *ngIf="!element.checkLoad && element.type !== 4"
+            [checked]="element.pay"
+            (change)="onSetPaid(element, $event)"
+          >
+          </mat-checkbox>
+        </td>
+
+        <td *matFooterCellDef mat-footer-cell>
+          {{ biweekly | currency: '$' }}/
+          <em>{{ individual | currency: '$' }}</em>
+        </td>
+      </ng-container>
+
+      <tr *matNoDataRow class="mat-row">
+        <td class="mat-cell text-center" colspan="6">
+          <div *ngIf="load" class="w-100 text-center mt-3 mb-3">
+            <mat-spinner color="accent" strokeWidth="3" diameter="40"></mat-spinner>
+          </div>
+
+          <span *ngIf="!load">
+            Aún no hay gastos registrados,
+            añade nuevos gastos
+            <em class="mdi mdi-plus pointer success-color" (click)="onAdd()"></em>
+          </span>
+        </td>
+      </tr>
+
+      <tr *matHeaderRowDef="displayedColumns; sticky: true" mat-header-row></tr>
+      <tr
+        *matRowDef="let row; columns: displayedColumns;"
+        mat-row
+        class="pointer"
+        matTooltip="Guardando los cambios..."
+        (click)="selectedPayment = row"
+        (dblclick)="onRightClickRow($event, row)"
+        [id]="row.uuid"
+        [routerLink]="['/payment', periodUuid, row.uuid]"
+        [class.row-is-clicked]="(!row.pending) && selectedPayment?.uuid === row?.uuid"
+        [class.row-is-disabled]="row.pending"
+        [matTooltipDisabled]="!row.pending"
+      >
+      </tr>
+      <tr *matFooterRowDef="displayedColumns; sticky: true" mat-footer-row></tr>
+    </table>
+  </div>
+
+  <mat-paginator showFirstLastButtons [pageSizeOptions]="[20, 30, 40]"></mat-paginator>
+</div>

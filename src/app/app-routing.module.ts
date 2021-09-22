@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BASE_ROUTES } from './core/routes/base.routes';
-import { DASHBOARD_ROUTING } from './core/routes/dashboard.routes';
+import { PERIOD_ROUTING } from './core/routes/period.routes';
+import { PAYMENT_ROUTING } from './core/routes/payment.routes';
 
 const routes: Routes = [
   ...BASE_ROUTES,
-  ...DASHBOARD_ROUTING
+  ...PERIOD_ROUTING,
+  ...PAYMENT_ROUTING
 ];
 
 @NgModule({

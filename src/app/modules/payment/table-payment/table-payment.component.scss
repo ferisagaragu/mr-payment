@@ -1,0 +1,22 @@
+.table-container {
+  max-height: 350px;
+  overflow: auto;
+}
+
+.mat-sort-header-container {
+  width: 16.66666666666667% !important;
+  justify-content: center;
+}
+
+.mat-cell {
+  width: 16.66666666666667% !important;
+  text-align: center;
+}
+
+.mat-footer-cell {
+  width: 16.66666666666667% !important;
+  text-align: center;
+  color: rgba(0,0,0,.54);
+  font-size: 12px;
+  font-weight: bold !important;
+}

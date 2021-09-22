@@ -1,0 +1,157 @@
+<div class="mat-elevation-z8">
+  <div class="chip-container">
+    <app-chip-period-detail [periodDetail]="selectedPeriod?.detail">
+    </app-chip-period-detail>
+  </div>
+
+  <table matSort mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="name">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        Periodo
+      </th>
+
+      <td *matCellDef="let element" mat-cell>
+        {{ element.name }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalMoney">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        Sueldo
+      </th>
+
+      <td *matCellDef="let element" mat-cell>
+        <em>{{ element.totalMoney | currency: '$' }}</em>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="debt">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        Gastos
+      </th>
+
+      <td *matCellDef="let element" mat-cell>
+        <div *ngIf="element.save !== 0" class="w-100 ps-5 save-money">
+          <em>{{ element.save | currency: '$' }}</em>
+        </div>
+
+        <span *ngIf="!alertConfig?.lowQuantity">
+          {{ element.debt | currency:'$' }}
+        </span>
+
+        <span *ngIf="alertConfig">
+          <span *ngIf="element.debt < alertConfig?.lowQuantity">
+            {{ element.debt | currency:'$' }}
+          </span>
+
+          <span
+            *ngIf="element.debt >= alertConfig?.lowQuantity && element.debt < alertConfig?.mediumQuantity"
+            class="warn-color"
+            matTooltip="Tus gastos son algo elevados"
+          >
+            {{ element.debt | currency:'$' }}
+          </span>
+
+          <span
+            *ngIf="element.debt >= alertConfig?.mediumQuantity && element.debt < alertConfig?.hardQuantity"
+            class="medium-color"
+            matTooltip="Tus gastos son elevados"
+          >
+            {{ element.debt | currency:'$' }}
+          </span>
+
+          <span
+            *ngIf="element.debt >= alertConfig?.hardQuantity"
+            class="hard-color"
+            matTooltip="Tus gastos son muy elevados"
+          >
+            {{ element.debt | currency:'$' }}
+          </span>
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="remainingDebt">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        Por pagar
+      </th>
+
+      <td *matCellDef="let element" mat-cell>
+        <span *ngIf="element.remainingDebt">
+          {{ element.remainingDebt | currency:'$' }}
+        </span>
+
+        <em
+          *ngIf="(element.debt !== 0) && (element.remainingDebt === 0)"
+          class="mdi mdi-credit-card-check mdi-24px success-color"
+          matTooltip="¡Yeeeii! Ya pagaste todos tus gastos"
+        >
+        </em>
+
+        <em
+          *ngIf="(element.debt === 0) && (element.remainingDebt === 0)"
+          class="mdi mdi-progress-question mdi-24px neutral-color"
+          matTooltip="Parece que no tienes gastos registrados"
+        >
+        </em>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="freeMoney">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        Dinero para gastar
+      </th>
+
+      <td *matCellDef="let element" mat-cell>
+        {{ element.freeMoney | currency:'$' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="biweekly">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        Toca por quincena
+      </th>
+
+      <td *matCellDef="let element" mat-cell>
+        {{ element.biweekly | currency:'$' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="individual">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        Individual
+      </th>
+
+      <td *matCellDef="let element" mat-cell>
+        {{ element.individual | currency: '$' }}
+      </td>
+    </ng-container>
+
+    <tr *matNoDataRow class="mat-row">
+      <td class="mat-cell text-center" colspan="7">
+        <div *ngIf="load" class="w-100 mt-3 mb-3">
+          <mat-spinner color="accent" strokeWidth="3" diameter="40"></mat-spinner>
+        </div>
+
+        <span *ngIf="!load">
+          Aún no hay periodos registrados
+        </span>
+      </td>
+    </tr>
+
+    <tr *matHeaderRowDef="displayedColumns; sticky: true;" mat-header-row></tr>
+    <tr
+      *matRowDef="let row; columns: displayedColumns;"
+      mat-row
+      class="pointer"
+      (click)="selectedPeriod = row"
+      (dblclick)="onRightClick($event, row)"
+      [routerLink]="['/period', row.uuid]"
+      [class.row-is-clicked]="selectedPeriod?.uuid === row?.uuid"
+      [class.row-is-actual-period]="row.enable"
+    >
+    </tr>
+  </table>
+
+  <mat-paginator showFirstLastButtons [pageSizeOptions]="[20, 30, 40]"></mat-paginator>
+</div>

@@ -1,0 +1,127 @@
+<form *ngIf="!delete" class="mt-4" [formGroup]="form" (ngSubmit)="save()">
+  <h3>Crea un nuevo pago</h3>
+
+  <mat-form-field class="w-100 mt-3" appearance="outline">
+    <mat-label>
+      Tipo
+    </mat-label>
+
+    <mat-select formControlName="type">
+      <mat-option selected [value]="0">
+        <em class="mdi mdi-calendar-check neutral-color"></em>
+        Único
+      </mat-option>
+
+      <mat-option [value]="1">
+        <em class="mdi mdi-calendar pink-color"></em>
+        Mensual
+      </mat-option>
+
+      <mat-option [value]="2">
+        <em class="mdi mdi-calendar-arrow-right orange-color"></em>
+        Recurrente
+      </mat-option>
+
+      <mat-option [value]="3">
+        <em class="mdi mdi-calendar-star warn-color"></em>
+        Ahorro
+      </mat-option>
+
+      <mat-option [value]="4">
+        <em class="mdi mdi-calendar-heart success-color"></em>
+        Dinero Extra
+      </mat-option>
+
+      <mat-option [value]="5">
+        <em class="mdi mdi-calendar-alert error-color"></em>
+        Préstamo
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mt-3" appearance="outline">
+    <mat-label>Nombre</mat-label>
+
+    <input
+      matInput
+      required
+      formControlName="name"
+    >
+
+    <mat-error>
+      El nombre del pago es requerido
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mt-3" appearance="outline">
+    <mat-label>Cantidad</mat-label>
+
+    <!--      mask="pesos" inputMask [aliases]="maskAliases"-->
+    <input
+      matInput
+      required
+      type="number"
+      formControlName="quantity"
+    >
+
+    <mat-error>
+      La cantidad del pago es requerida
+    </mat-error>
+  </mat-form-field>
+
+  <div *ngIf="form.get('type').value === 1">
+    <mat-form-field class="w-100 mt-3" appearance="outline">
+      <mat-label>Periodo de pago</mat-label>
+
+      <!--[disabled]="paymentType !== 1" [min]="todayDate"-->
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate formControlName="startDate">
+        <input matEndDate formControlName="endDate">
+      </mat-date-range-input>
+
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+
+      <mat-error>
+        El periodo de pago es requerido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 mt-3" appearance="outline">
+      <mat-label>Cantidad total</mat-label>
+
+      <input
+        matInput
+        formControlName="totalQuantity"
+        type="number"
+      >
+    </mat-form-field>
+  </div>
+
+  <div class="text-end mt-3">
+    <mat-checkbox
+      *ngIf="!elementSelected"
+      class="me-4"
+      color="primary"
+      (change)="multiple = $event.checked"
+    >
+      Crear multiples
+    </mat-checkbox>
+
+    <button
+      mat-stroked-button
+      class="me-3"
+      type="button"
+      color="accent"
+      (click)="onClose()"
+    >
+      <em class="mdi mdi-close"></em>
+      Cancelar
+    </button>
+
+    <button mat-stroked-button color="accent">
+      <em class="mdi mdi-credit-card-check"></em>
+      {{ elementSelected ? 'Actualizar' : 'Crear' }}
+    </button>
+  </div>
+</form>

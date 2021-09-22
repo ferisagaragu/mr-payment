@@ -1,21 +1,22 @@
-import * as moment from 'moment';
+import { PeriodDetailModel } from './period-detail.model';
 
 export class PeriodModel {
 
   uuid: string;
-  name: string;
-  debt: number;
   date: Date;
-  remainingDebt: number;
-  freeMoney: number;
-  biweekly: number;
+  name: string;
+  save: number;
   enable: boolean;
+  individual: number;
+  debt: number
+  biweekly: number;
+  freeMoney: number;
+  remainingDebt: number;
+  totalMoney: number;
+  detail: PeriodDetailModel;
 
   constructor(data: PeriodModel | any) {
     Object.assign(this, data);
-    moment.locale('es');
-
-    this.name = moment(data.date).format('MMMM YYYY');
   }
 
 }

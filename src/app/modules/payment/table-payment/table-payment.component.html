@@ -2,7 +2,7 @@
   <div #tableContainer class="table-container scroll">
     <table mat-table matSort aria-label="Tabla de pagos" [dataSource]="dataSource">
       <ng-container matColumnDef="type">
-        <th *matHeaderCellDef mat-header-cell mat-sort-header>
+        <th *matHeaderCellDef mat-header-cell mat-sort-header scope="col">
           Tipo
         </th>
 

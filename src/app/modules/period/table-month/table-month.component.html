@@ -4,9 +4,9 @@
     </app-chip-period-detail>
   </div>
 
-  <table matSort mat-table [dataSource]="dataSource">
+  <table matSort mat-table aria-label="Tabla de periodos" [dataSource]="dataSource">
     <ng-container matColumnDef="name">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header scope="col">
         Periodo
       </th>
 
@@ -16,7 +16,7 @@
     </ng-container>
 
     <ng-container matColumnDef="totalMoney">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header scope="col">
         Sueldo
       </th>
 
@@ -26,7 +26,7 @@
     </ng-container>
 
     <ng-container matColumnDef="debt">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header scope="col">
         Gastos
       </th>
 
@@ -72,7 +72,7 @@
     </ng-container>
 
     <ng-container matColumnDef="remainingDebt">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header scope="col">
         Por pagar
       </th>
 
@@ -98,7 +98,7 @@
     </ng-container>
 
     <ng-container matColumnDef="freeMoney">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header scope="col">
         Dinero para gastar
       </th>
 
@@ -108,7 +108,7 @@
     </ng-container>
 
     <ng-container matColumnDef="biweekly">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header scope="col">
         Toca por quincena
       </th>
 
@@ -118,7 +118,7 @@
     </ng-container>
 
     <ng-container matColumnDef="individual">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header scope="col">
         Individual
       </th>
 

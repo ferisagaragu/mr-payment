@@ -173,7 +173,7 @@ export class TablePaymentComponent implements OnInit, AfterViewInit {
     this.paymentService.onChange.subscribe(resp => {
       if (resp) {
         this.dataSource.data = resp.data;
-        resp.detail ? this.calculateTotal(resp.detail) : undefined;
+        if(resp.detail) this.calculateTotal(resp.detail);
       }
     });
   }

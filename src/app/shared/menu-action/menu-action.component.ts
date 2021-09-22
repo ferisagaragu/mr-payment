@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 @Component({
@@ -6,7 +6,7 @@ import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetRef } from '@angular/material/bott
   templateUrl: './menu-action.component.html',
   styleUrls: ['./menu-action.component.scss']
 })
-export class MenuActionComponent implements OnInit {
+export class MenuActionComponent {
 
   name: string;
   type: string;
@@ -25,8 +25,6 @@ export class MenuActionComponent implements OnInit {
     this.disableOption = disableOption;
     this.periodUuid = periodUuid;
   }
-
-  ngOnInit(): void { }
 
   onAddPayments(): void {
     this.bottomSheetRef.dismiss('add-payment');

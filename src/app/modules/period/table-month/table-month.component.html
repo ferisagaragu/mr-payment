@@ -134,7 +134,9 @@
         </div>
 
         <span *ngIf="!load">
-          Aún no hay periodos registrados
+          Aún no hay periodos registrados,
+          añade un nuevo periodo
+          <em class="mdi mdi-plus pointer success-color" (click)="onAdd()"></em>
         </span>
       </td>
     </tr>
@@ -149,6 +151,7 @@
       [routerLink]="['/period', row.uuid]"
       [class.row-is-clicked]="selectedPeriod?.uuid === row?.uuid"
       [class.row-is-actual-period]="row.enable"
+      [class.row-is-disabled]="row.pending"
     >
     </tr>
   </table>

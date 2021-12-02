@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es-MX';
+import { environment } from '../environments/environment';
 
 registerLocaleData(localeEs, 'es');
 
@@ -24,7 +25,9 @@ registerLocaleData(localeEs, 'es');
     SharedModule
   ],
   providers: [
-    { provide: LOCALE_ID, useValue: 'es' }
+    { provide: LOCALE_ID, useValue: 'es' },
+    { provide: 'baseUrl', useValue: environment.baseUrl },
+    { provide: 'authRoute', useValue: { authorized: 'auth', unauthorized: 'period' } }
   ],
   bootstrap: [AppComponent]
 })

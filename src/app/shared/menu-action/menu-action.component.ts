@@ -10,7 +10,6 @@ export class MenuActionComponent {
 
   name: string;
   type: string;
-  disableOption: string;
 
   private readonly periodUuid: string;
 
@@ -18,16 +17,23 @@ export class MenuActionComponent {
     private bottomSheetRef: MatBottomSheetRef<MenuActionComponent>,
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any
   ) {
-    const { periodUuid, name, type, disableOption } = data;
+    const { periodUuid, name, type } = data;
 
     this.name = name;
     this.type = type;
-    this.disableOption = disableOption;
     this.periodUuid = periodUuid;
   }
 
-  onAddPayments(): void {
-    this.bottomSheetRef.dismiss('add-payment');
+  onViewPayment(): void {
+    this.bottomSheetRef.dismiss('view-payment');
+  }
+
+  onAddPeriod(): void {
+    this.bottomSheetRef.dismiss('add-period');
+  }
+
+  onRemovePeriod(): void {
+    this.bottomSheetRef.dismiss('remove-period');
   }
 
   onAddPayment(): void {

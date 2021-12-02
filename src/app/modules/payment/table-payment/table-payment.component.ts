@@ -69,11 +69,7 @@ export class TablePaymentComponent implements OnInit, AfterViewInit {
       MenuActionComponent,
       {
         data: {
-          type: 'payment',
-          disableOption:
-            payment.type === PaymentTypeEnum.MONTHLY ?
-              'update' :
-              null
+          type: 'payment'
         }
       }
     ).afterDismissed().subscribe(resp => {

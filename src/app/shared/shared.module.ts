@@ -28,7 +28,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { DATE_FORMAT } from '../core/formats/date.format';
 
-import { UrxAlertModule, UrxFormatModule, UrxGridModule } from 'ng-urxnium';
+import { UrxAlertModule, UrxFormatModule, UrxGridModule, UrxSessionModule } from 'ng-urxnium';
 
 import { LogoComponent } from './logo/logo.component';
 import { HeaderComponent } from './header/header.component';
@@ -36,6 +36,8 @@ import { AlertComponent } from './alert/alert.component';
 import { FormIndicatorComponent } from './form-indicator/form-indicator.component';
 import { MenuActionComponent } from './menu-action/menu-action.component';
 import { SectionAlertPeriodComponent } from './section-alert-period/section-alert-period.component';
+import { FaqComponent } from './faq/faq.component';
+import { BigLogoComponent } from './big-logo/big-logo.component';
 
 @NgModule({
   providers: [
@@ -54,7 +56,9 @@ import { SectionAlertPeriodComponent } from './section-alert-period/section-aler
     AlertComponent,
     FormIndicatorComponent,
     MenuActionComponent,
-    SectionAlertPeriodComponent
+    SectionAlertPeriodComponent,
+    FaqComponent,
+    BigLogoComponent
 	],
   imports: [
     CommonModule,
@@ -82,38 +86,41 @@ import { SectionAlertPeriodComponent } from './section-alert-period/section-aler
     RouterModule,
     UrxAlertModule,
     UrxFormatModule,
-    UrxGridModule
+    UrxGridModule,
+    UrxSessionModule
   ],
-	exports: [
-		ReactiveFormsModule,
-		MatPaginatorModule,
-		MatTableModule,
-		MatButtonModule,
-		MatIconModule,
-		MatDatepickerModule,
-		MatInputModule,
-		MatFormFieldModule,
-		MatDialogModule,
-		MatCardModule,
-		MatCheckboxModule,
-		MatSlideToggleModule,
-		MatTooltipModule,
-		MatSelectModule,
-		MatProgressSpinnerModule,
-		MatChipsModule,
-		MatMenuModule,
+  exports: [
+    ReactiveFormsModule,
+    MatPaginatorModule,
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDialogModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatSlideToggleModule,
+    MatTooltipModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    MatChipsModule,
+    MatMenuModule,
     MatBottomSheetModule,
     MatListModule,
     MatSortModule,
     MatSnackBarModule,
     UrxAlertModule,
     UrxFormatModule,
+    UrxSessionModule,
 
-		HeaderComponent,
-		AlertComponent,
-		LogoComponent,
+    HeaderComponent,
+    AlertComponent,
+    LogoComponent,
     MenuActionComponent,
-    SectionAlertPeriodComponent
-	]
+    SectionAlertPeriodComponent,
+    BigLogoComponent
+  ]
 })
 export class SharedModule { }

@@ -1,4 +1,4 @@
-<form *ngIf="!delete" class="mt-4" [formGroup]="form" (ngSubmit)="save()">
+<form *ngIf="!delete" [formGroup]="form" (ngSubmit)="save()">
   <h3>Crea un nuevo pago</h3>
 
   <mat-form-field class="w-100 mt-3" appearance="outline">
@@ -73,7 +73,7 @@
       <mat-label>Periodo de pago</mat-label>
 
       <!--[disabled]="paymentType !== 1" [min]="todayDate"-->
-      <mat-date-range-input [rangePicker]="picker">
+      <mat-date-range-input [rangePicker]="picker" [min]="todayDate">
         <input matStartDate formControlName="startDate">
         <input matEndDate formControlName="endDate">
       </mat-date-range-input>

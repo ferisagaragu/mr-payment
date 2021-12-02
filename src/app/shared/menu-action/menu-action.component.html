@@ -1,15 +1,45 @@
 <mat-nav-list>
-  <a *ngIf="type === 'detail'" mat-list-item (click)="onAddPayments()">
+  <a *ngIf="type === 'detail'" mat-list-item (click)="onViewPayment()">
     <div class="row">
       <div class="col-md-1 div-icon">
         <div class="item-icon">
-          <em class="mdi mdi-credit-card-plus teal-color"></em>
+          <em class="mdi mdi-credit-card-scan teal-color"></em>
         </div>
       </div>
 
       <div class="col-md-8 ms-4">
         <span mat-line>Mis Pagos de {{ name }}</span>
         <span mat-line>Ver, crea y editar pagos</span>
+      </div>
+    </div>
+  </a>
+
+  <a *ngIf="type === 'detail'" mat-list-item (click)="onAddPeriod()">
+    <div class="row">
+      <div class="col-md-1 div-icon">
+        <div class="item-icon">
+          <em class="mdi mdi-credit-card-plus pink-color"></em>
+        </div>
+      </div>
+
+      <div class="col-md-8 ms-4">
+        <span mat-line>Crear nuevo periodo</span>
+        <span mat-line>Crea el periodo mensual que necesites</span>
+      </div>
+    </div>
+  </a>
+
+  <a *ngIf="type === 'detail'" mat-list-item (click)="onRemovePeriod()">
+    <div class="row">
+      <div class="col-md-1 div-icon">
+        <div class="item-icon">
+          <em class="mdi mdi-credit-card-refresh orange-color"></em>
+        </div>
+      </div>
+
+      <div class="col-md-8 ms-4">
+        <span mat-line>Elimina el periodo del mes</span>
+        <span mat-line>Borra todo el periodo, con sus pagos</span>
       </div>
     </div>
   </a>
@@ -30,7 +60,7 @@
   </a>
 
   <a
-    *ngIf="type === 'payment' && disableOption !== 'update'"
+    *ngIf="type === 'payment'"
      mat-list-item
     (click)="onUpdatePayment()"
   >

@@ -1,0 +1,41 @@
+<form [formGroup]="form" (ngSubmit)="save()">
+  <h3>Crea un nuevo periodo</h3>
+
+  <mat-form-field class="w-100 mt-3" appearance="outline">
+    <mat-label>Fecha del periodo</mat-label>
+
+    <input matInput disabled formControlName="periodName" [matDatepicker]="picker">
+
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker
+      #picker
+      startView="multi-year"
+      (yearSelected)="onYearSelected($event)"
+      (monthSelected)="onMonthSelected($event, picker)"
+      [disabled]="false"
+    >
+    </mat-datepicker>
+
+    <mat-error>La fecha del periodo es requerida</mat-error>
+  </mat-form-field>
+
+  <div class="text-end mt-3">
+    <button
+      mat-stroked-button
+      class="me-3"
+      color="accent"
+      type="button"
+      (click)="onClose()"
+      [disabled]="load"
+    >
+      <em class="mdi mdi-close"></em>
+      Cerrar
+    </button>
+
+    <button mat-stroked-button color="accent" [disabled]="load">
+      <em *ngIf="!load" class="mdi mdi-content-save"></em>
+      <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
+      Crear
+    </button>
+  </div>
+</form>

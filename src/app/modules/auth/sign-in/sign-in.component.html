@@ -1,0 +1,64 @@
+<div class="mat-elevation-z8 card">
+  <div class="row p-5">
+    <div class="col-md-2 logo-position">
+      <app-big-logo></app-big-logo>
+    </div>
+
+    <div class="col-md-10">
+      <form [formGroup]="form" (ngSubmit)="signIn()">
+
+        <h3>Inicio de sesión</h3>
+
+        <mat-form-field class="w-100 mt-2" appearance="outline">
+          <mat-label>Nombre de usuario o correo electrónico</mat-label>
+
+          <input
+            matInput
+            required
+            formControlName="userName"
+          >
+
+          <mat-error *ngIf="form.get('userName').hasError('required')">
+            El nombre de usuario o correo electrónico es requerido
+          </mat-error>
+
+          <mat-error *ngIf="form.get('userName').hasError('server')">
+            {{ form.get('userName').getError('server') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 mt-2" appearance="outline">
+          <mat-label>Contraseña</mat-label>
+
+          <input
+            matInput
+            required
+            type="password"
+            formControlName="password"
+          >
+
+          <mat-error *ngIf="form.get('password').hasError('required')">
+            La contraseña es requerida
+          </mat-error>
+
+          <mat-error *ngIf="form.get('password').hasError('server')">
+            {{ form.get('password').getError('server') }}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="w-100 text-end mt-2">
+          <button
+            mat-stroked-button
+            color="accent"
+            [disabled]="load"
+          >
+            <em *ngIf="load" class="mdi mdi-loading mdi-spin"></em>
+            <em *ngIf="!load" class="mdi mdi-card-account-details"></em>
+            &nbsp;
+            Iniciar Sesión
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

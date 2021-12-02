@@ -1,4 +1,12 @@
 <mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="onSignOut()">
+    <em class="mdi mdi-account-arrow-right-outline mdi-18px"></em>
+
+    <span>
+      Cerrar sesión
+    </span>
+  </button>
+
   <button mat-menu-item (click)="onSettings()">
     <em class="mdi mdi-unfold-less-vertical mdi-18px"></em>
 
@@ -14,9 +22,17 @@
       Configuración de notificaciones
     </span>
   </button>
+
+  <button mat-menu-item (click)="onFAQ()">
+    <em class="mdi mdi-shield-alert-outline mdi-18px"></em>
+
+    <span>
+      FAQ
+    </span>
+  </button>
 </mat-menu>
 
-<header>
+<header *ngIf="signIn">
   <div class="row">
     <div class="col-3 mt-1">
       <app-logo></app-logo>

@@ -52,9 +52,27 @@ export class FormPaymentComponent implements OnInit {
             Validators.min(0)
           ])
         ],
-        startDate: [{ value: null, disabled: true }, Validators.required],
-        endDate: [{ value: null, disabled: true }, Validators.required],
-        totalQuantity: [{ value: null, disabled: true }, Validators.required]
+        startDate: [
+          {
+            value: this.data.elementSelected?.startDate,
+            disabled: this.data.elementSelected?.type !== 1
+          },
+          Validators.required
+        ],
+        endDate: [
+          {
+            value: this.data.elementSelected?.endDate,
+            disabled: this.data.elementSelected?.type !== 1
+          },
+          Validators.required
+        ],
+        totalQuantity: [
+          {
+            value: this.data.elementSelected?.totalQuantity,
+            disabled: this.data.elementSelected?.type !== 1
+          },
+          Validators.required
+        ]
       });
     }
 
@@ -112,7 +130,9 @@ export class FormPaymentComponent implements OnInit {
       this.paymentService.onChange.next({ data: elements });
 
       if (this.multiple) {
-        this.form.reset();
+        this.form.reset({
+          type: this.form.value.type
+        });
       } else {
         this.dialog.getDialogById(DialogIdEnum.PAYMENT_DIALOG).close();
       }
